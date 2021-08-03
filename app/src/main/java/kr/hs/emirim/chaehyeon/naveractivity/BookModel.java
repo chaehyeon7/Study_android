@@ -3,6 +3,7 @@ package kr.hs.emirim.chaehyeon.naveractivity;
 public class BookModel {
     //얻어올 정보들을 저장할 클래스
     //제목. 저자, 가격, 이미지
+
     private String b_title, b_author, b_price, b_img;
 
     public String getB_title() {
