@@ -1,5 +1,8 @@
 package kr.hs.emirim.chaehyeon.naveractivity;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -33,13 +36,47 @@ public class Parser {
             connection.setRequestProperty( "Z-Naver-Client-Secret", "ThZK4CkFZC");
 
             //위의 URL(인증완료)을 수행해서 받을 자원을 파싱할 객체를 준비
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = factory.newPullParser();
 
+            //각 요소들을 반복 수행 처리
+            int parserEvent = parser.getEventType();
+
+            while ( parserEvent != XmlPullParser.END_DOCUMENT ){
+                //문서의 끝을 만날때까지 반복
+                if ( parserEvent == XmlPullParser.START_TAG) { //시작태그를 만났을 떄
+                    //시작태그의 이름을 가져온다.
+                    String tagName = parser.getName();
+
+                    if ( tagName.equalsIgnoreCase( "title")){
+                        vo = new BookModel();
+                        String title = parser.nextText();  //값
+                        vo.setB_title(title);
+                    }else if ( tagName.equalsIgnoreCase( "image")){
+                        String img = parser.nextText();
+                        vo.setB_img( img);
+                    }else if ( tagName.equalsIgnoreCase("author")){
+                        String author = parser.nextText();
+                        vo.setB_author( author);
+                    }else if ( tagName.equalsIgnoreCase("price")){
+                        String price = parser.nextText();
+                        vo.setB_price( price );
+                        list.add( vo );
+                    }
+
+                }
+
+                parserEvent = parser.next();  //다음 요소
+
+            }// while
 
         }catch (Exception e){
 
         }
 
-        return list;
+        //서버를 토애서 가지고 온 자원들이 lsit에 저장되어 있다.
+        //이것을 반환
+        return list; //add 했으니 여기로 온다.
 
     }
 }
