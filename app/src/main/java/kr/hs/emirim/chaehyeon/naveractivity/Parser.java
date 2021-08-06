@@ -39,6 +39,9 @@ public class Parser {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = factory.newPullParser();
 
+            //connection을 통해 파싱
+            parser.setInput( connection.getInputStream(), null ); //AndroidManifest권한 부여
+
             //각 요소들을 반복 수행 처리
             int parserEvent = parser.getEventType();
 
