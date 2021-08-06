@@ -5,6 +5,7 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,15 +58,21 @@ public class MainActivity extends AppCompatActivity {
 
             //strings[0] -> "홍"
             //strings[1] -> "길"
-            //strings[2] -> "덩"
+            //strings[2] -> "동"
 
             //필수!! 각종 반복이나 제어등 주된 처리 로직을 담당
             return parser.connectNaver( list );
+//            return parser.connectNaver( list, string[0] );  두개 처리 가능
         }
 
         @Override
         protected void onPostExecute(ArrayList<BookModel> bookModels) {
             //dolnBackGround를 통해 완료된 작업 결과를 처리
+            for (int i=0; i<bookModels.size(); i++){
+
+                Log.i("MY", bookModels.get(i).getB_title() );
+
+            }
 
         }
     }//NaverAsync
