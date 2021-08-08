@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button search_btn;
     Parser parser;
     ArrayList<BookModel> list;
+    ViewModelAdapter adapter;
 
 
     @Override
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 list = new ArrayList<>();
+
+                adapter = null;
+
                 // parser.connectNaver( lsit );  사용 불가
                 new NaverAsync().execute("홍", "길","동");   //doInBackground메서드 호출
 
@@ -67,11 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<BookModel> bookModels) {
-            //dolnBackGround를 통해 완료된 작업 결과를 처리
-            for (int i=0; i<bookModels.size(); i++){
 
-                Log.i("MY", bookModels.get(i).getB_title() );
+            if (adapter == null){
 
+                adapter = new ViewModelAdapter(MainActivity.this,R.layout.book_item, bookModels );
             }
 
         }

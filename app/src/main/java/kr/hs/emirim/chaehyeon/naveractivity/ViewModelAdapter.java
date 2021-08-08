@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,19 @@ public class ViewModelAdapter extends ArrayAdapter<BookModel> {
 
         LayoutInflater linf = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = linf.inflate(resource, null);
+        
+        //리스트뷰에 표현할 책 정보 객체
+        vo = list.get(position);
+
+        TextView title = convertView.findViewById(R.id.book_title);
+        TextView author = convertView.findViewById(R.id.book_author);
+        TextView price = convertView.findViewById(R.id.book_price);
+        TextView img = convertView.findViewById(R.id.book_img);
+
+        title.setText("title :" + vo.getB_title());
+        author.setText("author :" + vo.getB_author());
+        price.setText("price :" + vo.getB_price());
+
         return convertView;
     }
 }
