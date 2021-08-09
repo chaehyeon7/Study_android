@@ -1,6 +1,8 @@
 package kr.hs.emirim.chaehyeon.naveractivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,5 +49,19 @@ public class ViewModelAdapter extends ArrayAdapter<BookModel> {
         price.setText("price :" + vo.getB_price());
 
         return convertView;
+    }//getVIew()
+
+    //통신을 통해 이미지를 로드할 Async클래ㅡㅅ
+    class ImgAsync extends AsyncTask<String, String, Bitmap>{
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+
+        }
     }
 }

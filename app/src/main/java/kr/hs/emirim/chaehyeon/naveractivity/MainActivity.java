@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
             if (adapter == null){
 
                 adapter = new ViewModelAdapter(MainActivity.this,R.layout.book_item, bookModels );
+
+                //리스트 뷰에 어댑터 세팅
+                myListView.setAdapter( adapter);
             }
 
         }

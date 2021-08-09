@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     //웹에서 요소(제목, 저자, 가격, 이미지)를 검색하여 준비된 BookModel에 저장해서
@@ -54,7 +56,21 @@ public class Parser {
                     if ( tagName.equalsIgnoreCase( "title")){
                         vo = new BookModel();
                         String title = parser.nextText();  //값
+
+
+                        //<b> 태그를 제거하기 위한 정규표현식
+                        Pattern pattern = Pattern.compile("<.*?>");
+                        Matcher matcher = pattern.matcher(title);
+
+                        if ( matcher.find() ){
+                            String s_title = matcher.replaceAll("");
+                            vo.setB_title( s_title );
+                        }else {
+                            vo.setB_title( title );
+                        }
+
                         vo.setB_title(title);
+
                     }else if ( tagName.equalsIgnoreCase( "image")){
                         String img = parser.nextText();
                         vo.setB_img( img);
